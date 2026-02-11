@@ -27,7 +27,7 @@ namespace API.Controllers
                 {
                     Id = e.Id,
                     Title = e.Title,
-                    Adress = e.adress,
+                    Adress = e.Adress,
                     Date = e.Date,
                     Description = e.Description,
                     HostId = e.HostId,
@@ -54,7 +54,7 @@ namespace API.Controllers
                 {
                     Id = e.Id,
                     Title = e.Title,
-                    Adress = e.adress,
+                    Adress = e.Adress,
                     Date = e.Date,
                     Description = e.Description,
                     HostId = e.HostId,
@@ -84,7 +84,7 @@ namespace API.Controllers
                 {
                     Id = e.Id,
                     Title = e.Title,
-                    Adress = e.adress,
+                    Adress = e.Adress,
                     Date = e.Date,
                     Description = e.Description,
                     HostId = e.HostId,
@@ -118,7 +118,7 @@ namespace API.Controllers
             var newEvent = new Event
             {
                 Title = createDto.Title,
-                adress = createDto.Adress,
+                Adress = createDto.Adress,
                 Date = createDto.Date,
                 Description = createDto.Description,
                 HostId = createDto.HostId,
@@ -134,7 +134,7 @@ namespace API.Controllers
                 {
                     Id = e.Id,
                     Title = e.Title,
-                    Adress = e.adress,
+                    Adress = e.Adress,
                     Date = e.Date,
                     Description = e.Description,
                     HostId = e.HostId,
@@ -178,7 +178,7 @@ namespace API.Controllers
                 return NotFound();
             }
             evnt.Title = updatedEvent.Title;
-            evnt.adress = updatedEvent.adress;
+            evnt.Adress = updatedEvent.Adress;
             evnt.Date = updatedEvent.Date;
             evnt.Description = updatedEvent.Description;
             evnt.HostId = updatedEvent.HostId;

@@ -3,7 +3,7 @@
     public class Event : Common
     {
         public required string Title { get; set; }
-        public required string adress { get; set; }
+        public required string Adress { get; set; }
         public required DateTime Date { get; set; }
         public string? Description { get; set; }
         public required int HostId { get; set; }
