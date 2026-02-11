@@ -18,3 +18,12 @@ class ChatCard extends StatelessWidget {
             subtitle: Text(chat.message ?? 'No Message'), // Latest message preview
           ),
           ListTile(
+            title: Text(group.name ?? 'No Name'), // Chat name
+            // subtitle: Text(group.message ?? 'No Message'), // Latest group message preview
+            trailing: Text('Participants: ${chat.participantCount.length}'), // Participant count
+          ),
+        ],
+      ),
+    );
+  }
+}
