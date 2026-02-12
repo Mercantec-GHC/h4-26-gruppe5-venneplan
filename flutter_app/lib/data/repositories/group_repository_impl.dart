@@ -14,4 +14,22 @@ class GroupRepositoryImpl implements GroupRepository {
       failure: (error) => throw Exception(error.message),
     );
   }
+
+  @override
+  Future<List<String>> fetchGroupMembers(int groupId) async {
+    final result = await remoteDataSource.fetchGroupMembers(groupId);
+    return result.when(
+      success: (data) => data,
+      failure: (error) => throw Exception(error.message),
+    );
+  }
+
+  @override
+  Future<List<String>> addGroupMember(int groupId, int userId) async {
+    final result = await remoteDataSource.addGroupMember(groupId, userId);
+    return result.when(
+      success: (data) => data,
+      failure: (error) => throw Exception(error.message),
+    );
+  }
 }

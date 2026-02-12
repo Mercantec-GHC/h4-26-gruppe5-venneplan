@@ -1,4 +1,4 @@
-import '../../../domain/entities/chat_entity.dart';
+// import '../../../domain/entities/chat_entity.dart';
 
 class ChatData {
   final String? name;
@@ -28,4 +28,10 @@ class ChatMessage {
     required this.message,
     required this.chatId,
   });
+}
+
+class GroupData {
+  final String? name;
+
+  const GroupData({required this.name});
 }
