@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/features/events/view/Event_page.dart';
 import 'package:flutter_app/features/chat/view/chat_overview_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/config/app_config.dart';
@@ -89,6 +90,7 @@ class _MainNavigationState extends State<MainNavigation> {
   static final List<Widget> _pages = <Widget>[
     WeatherPage(),
     InfographicPage(),
+    EventPage(),
     ChatOverviewPage(),
   ];
 
@@ -111,6 +113,9 @@ class _MainNavigationState extends State<MainNavigation> {
           BottomNavigationBarItem(
             icon: Icon(Icons.info_outline),
             label: 'BLoC',
+          ),BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_today),
+            label: 'Events',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.chat),

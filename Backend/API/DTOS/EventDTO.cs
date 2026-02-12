@@ -18,7 +18,7 @@ namespace API.DTOS
     {
         public string Title { get; set; } = string.Empty;
         public string Adress { get; set; } = string.Empty;
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
         public string? Description { get; set; }
         public int HostId { get; set; }
     }

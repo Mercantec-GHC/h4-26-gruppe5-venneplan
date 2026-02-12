@@ -105,10 +105,9 @@ namespace API.Controllers
             return Ok(evnt);
         }
 
-        [HttpPost(Name = "CreateEvent")]
+        [HttpPost]
         public async Task<ActionResult<EventGetDTO>> CreateEvent([FromBody] EventCreateDTO createDto)
         {
-            // Find the Host user by HostId
             var host = await _context.Users.FindAsync(createDto.HostId);
             if(host == null)
             {
@@ -119,7 +118,7 @@ namespace API.Controllers
             {
                 Title = createDto.Title,
                 Adress = createDto.Adress,
-                Date = createDto.Date,
+                Date = DateTime.UtcNow,
                 Description = createDto.Description,
                 HostId = createDto.HostId,
                 Host = host // Set the required Host property
@@ -149,7 +148,7 @@ namespace API.Controllers
                 })
                 .FirstOrDefaultAsync();
 
-            return CreatedAtRoute("GetEventById", new { id = newEvent.Id }, eventDto);
+            return CreatedAtAction(nameof(GetEventById), new { id = newEvent.Id }, eventDto);
         }
 
         [HttpDelete("{id}")]
