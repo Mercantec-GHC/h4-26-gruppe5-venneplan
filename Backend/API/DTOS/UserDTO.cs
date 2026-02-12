@@ -7,6 +7,7 @@ namespace API.DTOS
     {
         public string Email { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
+        public string UserTag { get; set; } = string.Empty;
         public string City { get; set; } = string.Empty;
         public DateOnly Age { get; set; }
     }
@@ -23,6 +24,8 @@ namespace API.DTOS
         "Kun bogstaver, tal, _, . og - er tilladt.")]
         [Display(Name = "Navn")]
         public string Name { get; set; } = string.Empty;
+
+        public string UserTag { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Adgangskode er påkrævet.")]
         [StringLength(100, MinimumLength = 8,

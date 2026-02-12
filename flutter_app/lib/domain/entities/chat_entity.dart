@@ -31,7 +31,7 @@ abstract class ChatEntity extends Equatable {
 }
 
 abstract class GroupEntity extends Equatable {
-  final String name;
+  final String? name;
 
   const GroupEntity({required this.name});
 }
