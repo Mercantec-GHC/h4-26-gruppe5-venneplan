@@ -27,7 +27,7 @@ namespace API.Controllers
                 {
                     Id = e.Id,
                     Title = e.Title,
-                    Adress = e.adress,
+                    Adress = e.Adress,
                     Date = e.Date,
                     Description = e.Description,
                     HostId = e.HostId,
@@ -54,7 +54,7 @@ namespace API.Controllers
                 {
                     Id = e.Id,
                     Title = e.Title,
-                    Adress = e.adress,
+                    Adress = e.Adress,
                     Date = e.Date,
                     Description = e.Description,
                     HostId = e.HostId,
@@ -84,10 +84,10 @@ namespace API.Controllers
                 {
                     Id = e.Id,
                     Title = e.Title,
-                    Adress = e.adress,
+                    Adress = e.Adress,
                     Date = e.Date,
                     Description = e.Description,
-                    HostId = e.HostId,
+                    HostId = e.HostId,          
                     Host = new GetUserDTO
                     {
                         Email = e.Host.Email,
@@ -117,12 +117,12 @@ namespace API.Controllers
             var newEvent = new Event
             {
                 Title = createDto.Title,
-                adress = createDto.Adress,
+                Adress = createDto.Adress,
                 //Date = createDto.Date,
                 Date = DateTime.UtcNow,
                 Description = createDto.Description,
                 HostId = createDto.HostId,
-                Host = host // Set the required Host property
+                Host = host,
             };
 
             _context.Events.Add(newEvent);
@@ -134,7 +134,7 @@ namespace API.Controllers
                 {
                     Id = e.Id,
                     Title = e.Title,
-                    Adress = e.adress,
+                    Adress = e.Adress,
                     Date = e.Date,
                     Description = e.Description,
                     HostId = e.HostId,
@@ -166,25 +166,44 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateEvent(int id, [FromBody] Event updatedEvent)
+        public async Task<ActionResult<EventGetDTO>> UpdateEvent(int id, [FromBody] EventUpdateDTO updatedEvent)
         {
-            if(id != updatedEvent.Id)
-            {
-                return BadRequest();
-            }
             var evnt = await _context.Events.FindAsync(id);
             if(evnt == null)
             {
                 return NotFound();
             }
+            
             evnt.Title = updatedEvent.Title;
-            evnt.adress = updatedEvent.adress;
+            evnt.Adress = updatedEvent.Adress;
             evnt.Date = updatedEvent.Date;
             evnt.Description = updatedEvent.Description;
             evnt.HostId = updatedEvent.HostId;
-            _context.Events.Update(evnt);
+            
             await _context.SaveChangesAsync();
-            return NoContent();
+            
+            var eventDto = await _context.Events
+                .Where(e => e.Id == id)
+                .Select(e => new EventGetDTO
+                {
+                    Id = e.Id,
+                    Title = e.Title,
+                    Adress = e.Adress,
+                    Date = e.Date,
+                    Description = e.Description,
+                    HostId = e.HostId,
+                    Host = new GetUserDTO
+                    {
+                        Email = e.Host.Email,
+                        Name = e.Host.Name,
+                        City = e.Host.City,
+                        Age = e.Host.Age
+                    },
+                    ParticipantCount = e.Participants.Count
+                })
+                .FirstOrDefaultAsync();
+            
+            return Ok(eventDto);
         }
     }
 }

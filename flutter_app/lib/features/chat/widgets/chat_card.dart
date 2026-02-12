@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../domain/entities/chat_entity.dart';
-import '../model/chat_data.dart';
 
 class ChatCard extends StatelessWidget {
   final ChatEntity chat;

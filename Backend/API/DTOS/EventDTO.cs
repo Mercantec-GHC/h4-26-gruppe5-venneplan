@@ -38,4 +38,18 @@ namespace API.DTOS
         public int UserId { get; set; }
         public bool IsGoing { get; set; }
     }
+
+    public class UpdateParticipantStatusDTO
+    {
+        public int ParticipantId { get; set; }
+        public int EventId { get; set; }
+        public bool IsGoing { get; set; }
+    }
+    public class GetParticipantDTO
+    {
+        public int Id { get; set; }
+        public int EventId { get; set; }
+        public int UserId { get; set; }
+        public bool IsGoing { get; set; }
+    }
 }
