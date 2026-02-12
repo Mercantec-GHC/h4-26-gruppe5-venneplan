@@ -1,3 +1,4 @@
+import 'group_info_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -35,8 +36,17 @@ class ChatOverviewPage extends StatelessWidget {
               return ListView.builder(
                 itemCount: state.groupNames.length,
                 itemBuilder: (context, index) {
+                  final groupId = index;
                   return ListTile(
                     title: Text(state.groupNames[index]),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => GroupInfoPage(groupId: groupId, groupName: state.groupNames[index]),
+                        ),
+                      );
+                    },
                   );
                 },
               );

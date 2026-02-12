@@ -20,12 +20,12 @@ class GroupRemoteDataSource {
 
   Future<ApiResult<List<String>>> fetchGroupMembers(int groupId) async {
     return await apiClient.get<List<String>>(
-      '/Groups/get/$groupId',
+      '/Groups/getGroupMembers/$groupId',
       fromJson: (json) {
         if (json is List) {
           return json.map((e) => e['name'] as String).toList();
         }
-        throw FormatException('Expected JSON array, got \\${json.runtimeType}');
+        throw FormatException('Expected JSON array, got \${json.runtimeType}');
       },
     );
   }

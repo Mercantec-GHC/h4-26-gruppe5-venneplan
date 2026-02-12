@@ -26,3 +26,11 @@ class GroupError extends GroupState {
   @override
   List<Object?> get props => [message];
 }
+
+class GroupMembersLoaded extends GroupState {
+  final List<int> memberIds;
+  const GroupMembersLoaded(this.memberIds);
+
+  @override
+  List<Object?> get props => [memberIds];
+}

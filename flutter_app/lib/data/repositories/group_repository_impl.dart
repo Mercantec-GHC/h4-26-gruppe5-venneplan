@@ -1,3 +1,4 @@
+import 'package:flutter_app/core/api/api_result.dart';
 import '../../domain/repositories/group_repository.dart';
 import '../datasources/group_remote_datasource.dart';
 
@@ -7,29 +8,29 @@ class GroupRepositoryImpl implements GroupRepository {
   GroupRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<List<String>> fetchGroupNames() async {
+  Future<ApiResult<List<String>>> fetchGroupNames() async {
     final result = await remoteDataSource.fetchGroupNames();
     return result.when(
-      success: (data) => data,
-      failure: (error) => throw Exception(error.message),
+      success: (data) => ApiResult.success(data),
+      failure: (error) => ApiResult.failure(error),
     );
   }
 
   @override
-  Future<List<String>> fetchGroupMembers(int groupId) async {
+  Future<ApiResult<List<String>>> fetchGroupMembers(int groupId) async {
     final result = await remoteDataSource.fetchGroupMembers(groupId);
     return result.when(
-      success: (data) => data,
-      failure: (error) => throw Exception(error.message),
+      success: (data) => ApiResult.success(data),
+      failure: (error) => ApiResult.failure(error),
     );
   }
 
   @override
-  Future<List<String>> addGroupMember(int groupId, int userId) async {
+  Future<ApiResult<List<String>>> addGroupMember(int groupId, int userId) async {
     final result = await remoteDataSource.addGroupMember(groupId, userId);
     return result.when(
-      success: (data) => data,
-      failure: (error) => throw Exception(error.message),
+      success: (data) => ApiResult.success(data),
+      failure: (error) => ApiResult.failure(error),
     );
   }
 }

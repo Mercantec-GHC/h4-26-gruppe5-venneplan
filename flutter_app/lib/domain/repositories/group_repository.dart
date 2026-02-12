@@ -1,5 +1,7 @@
+import '../../core/api/api_result.dart';
+
 abstract class GroupRepository {
-  Future<List<String>> fetchGroupNames();
-  Future<List<String>> fetchGroupMembers(int groupId);
-  Future<List<String>> addGroupMember(int groupId, int userId);
+  Future<ApiResult<List<String>>> fetchGroupNames();
+  Future<ApiResult<List<String>>> fetchGroupMembers(int groupId);
+  Future<ApiResult<List<String>>> addGroupMember(int groupId, int userId);
 }

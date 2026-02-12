@@ -10,8 +10,11 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
     on<LoadGroups>((event, emit) async {
       emit(GroupLoading());
       try {
-        final groupNames = await repository.fetchGroupNames();
-        emit(GroupLoaded(groupNames));
+        final result = await repository.fetchGroupNames();
+        result.when(
+          success: (groupNames) => emit(GroupLoaded(groupNames)),
+          failure: (error) => emit(GroupError(error.message)),
+        );
       } catch (e) {
         emit(GroupError(e.toString()));
       }
