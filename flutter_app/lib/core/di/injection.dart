@@ -1,7 +1,11 @@
 import 'package:get_it/get_it.dart';
+import '../../data/datasources/event_remote_datasource.dart';
 import '../../data/datasources/weather_remote_datasource.dart';
+import '../../data/repositories/event_repository_impl.dart';
 import '../../data/repositories/weather_repository_impl.dart';
+import '../../domain/repositories/event_repository.dart';
 import '../../domain/repositories/weather_repository.dart';
+import '../../features/events/bloc/event_bloc.dart';
 import '../../features/weather/bloc/weather_bloc.dart';
 import '../api/api_client.dart';
 
@@ -55,6 +59,12 @@ Future<void> setupDependencyInjection() async {
     ),
   );
 
+  getIt.registerLazySingleton<EventRemoteDataSource>(
+    () => EventRemoteDataSource(
+      apiClient: getIt<ApiClient>(),
+    ),
+  );
+
   // Remember: Tilføj local data source her når I implementerer caching
   // getIt.registerLazySingleton<WeatherLocalDataSource>(
   //   () => WeatherLocalDataSourceImpl(),
@@ -69,6 +79,12 @@ Future<void> setupDependencyInjection() async {
     () => WeatherRepositoryImpl(
       remoteDataSource: getIt<WeatherRemoteDataSource>(),
       // localDataSource: getIt<WeatherLocalDataSource>(), // når caching tilføjes
+    ),
+  );
+
+  getIt.registerLazySingleton<EventRepository>(
+    () => EventRepositoryImpl(
+      remoteDataSource: getIt<EventRemoteDataSource>(),
     ),
   );
 
@@ -87,6 +103,12 @@ Future<void> setupDependencyInjection() async {
   getIt.registerFactory<WeatherBloc>(
     () => WeatherBloc(
       repository: getIt<WeatherRepository>(),
+    ),
+  );
+
+  getIt.registerFactory<EventBloc>(
+    () => EventBloc(
+      repository: getIt<EventRepository>(),
     ),
   );
 
