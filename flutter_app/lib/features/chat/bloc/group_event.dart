@@ -16,3 +16,11 @@ class LoadGroupMembers extends GroupEvent {
   @override
   List<Object?> get props => [groupId];
 }
+
+class CreateGroup extends GroupEvent {
+  final String name;
+  const CreateGroup(this.name);
+
+  @override
+  List<Object?> get props => [name];
+}

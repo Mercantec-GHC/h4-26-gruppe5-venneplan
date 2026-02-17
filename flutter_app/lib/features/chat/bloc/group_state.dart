@@ -34,3 +34,5 @@ class GroupMembersLoaded extends GroupState {
   @override
   List<Object?> get props => [memberIds];
 }
+
+class GroupCreated extends GroupState {}

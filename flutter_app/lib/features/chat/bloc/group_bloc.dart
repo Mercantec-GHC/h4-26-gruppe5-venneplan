@@ -19,5 +19,17 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
         emit(GroupError(e.toString()));
       }
     });
+    on<CreateGroup>((event, emit) async {
+      emit(GroupLoading());
+      try {
+        final result = await repository.createGroup(event.name);
+        result.when(
+          success: (_) => emit(GroupCreated()),
+          failure: (error) => emit(GroupError(error.message)),
+        );
+      } catch (e) {
+        emit(GroupError(e.toString()));
+      }
+    });
   }
 }

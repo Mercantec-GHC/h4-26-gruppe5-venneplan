@@ -33,4 +33,13 @@ class GroupRepositoryImpl implements GroupRepository {
       failure: (error) => ApiResult.failure(error),
     );
   }
+
+  @override
+  Future<ApiResult<void>> createGroup(String name) async {
+    final result = await remoteDataSource.createGroup(name);
+    return result.when(
+      success: (_) => ApiResult.success(null),
+      failure: (error) => ApiResult.failure(error),
+    );
+  }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/features/events/view/Event_page.dart';
 import 'package:flutter_app/features/chat/view/chat_overview_page.dart';
+import 'package:flutter_app/features/chat/view/create_group_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/config/app_config.dart';
 import 'core/di/injection.dart';
@@ -92,6 +93,7 @@ class _MainNavigationState extends State<MainNavigation> {
     InfographicPage(),
     EventPage(),
     ChatOverviewPage(),
+    CreateGroupPage(),
   ];
 
   @override
@@ -121,6 +123,9 @@ class _MainNavigationState extends State<MainNavigation> {
             icon: Icon(Icons.chat),
             label: 'Chat',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.group_add),
+            label: 'Create Group'),
         ],
       ),
     );

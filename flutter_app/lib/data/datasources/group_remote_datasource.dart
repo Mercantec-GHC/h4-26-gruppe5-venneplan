@@ -6,6 +6,14 @@ class GroupRemoteDataSource {
 
   GroupRemoteDataSource({required this.apiClient});
 
+    Future<ApiResult<void>> createGroup(String name) async {
+      return await apiClient.post<void>(
+        '/Groups/create',
+        body: {'name': name},
+        fromJson: (_) => null,
+      );
+    }
+
   Future<ApiResult<List<String>>> fetchGroupNames() async {
     return await apiClient.get<List<String>>(
       '/Groups/get',

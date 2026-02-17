@@ -16,7 +16,19 @@ class ChatOverviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Groups Overview')),
+      appBar: AppBar(
+        title: const Text('Groups Overview'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () {
+              final bloc = BlocProvider.of<GroupBloc>(context);
+              bloc.add(LoadGroups());
+            },
+            tooltip: 'Refresh',
+          ),
+        ],
+      ),
       body: BlocProvider(
         create: (context) => GroupBloc(
           repository: GroupRepositoryImpl(
