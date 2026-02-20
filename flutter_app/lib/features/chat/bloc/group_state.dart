@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import '../../../data/models/group.dart';
 
 abstract class GroupState extends Equatable {
   const GroupState();
@@ -12,11 +13,11 @@ class GroupInitial extends GroupState {}
 class GroupLoading extends GroupState {}
 
 class GroupLoaded extends GroupState {
-  final List<String> groupNames;
-  const GroupLoaded(this.groupNames);
+  final List<Group> groups;
+  const GroupLoaded(this.groups);
 
   @override
-  List<Object?> get props => [groupNames];
+  List<Object?> get props => [groups];
 }
 
 class GroupError extends GroupState {
@@ -28,7 +29,7 @@ class GroupError extends GroupState {
 }
 
 class GroupMembersLoaded extends GroupState {
-  final List<int> memberIds;
+  final List<String> memberIds;
   const GroupMembersLoaded(this.memberIds);
 
   @override
@@ -36,3 +37,13 @@ class GroupMembersLoaded extends GroupState {
 }
 
 class GroupCreated extends GroupState {}
+
+class GroupMemberAdded extends GroupState {}
+
+class GroupMemberError extends GroupState {
+  final String message;
+  const GroupMemberError(this.message);
+
+  @override
+  List<Object?> get props => [message];
+}

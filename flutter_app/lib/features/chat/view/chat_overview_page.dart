@@ -10,6 +10,7 @@ import '../../../data/repositories/group_repository_impl.dart';
 import '../../../data/datasources/group_remote_datasource.dart';
 import '../../../core/api/api_client.dart';
 
+
 class ChatOverviewPage extends StatelessWidget {
   const ChatOverviewPage({super.key});
 
@@ -42,20 +43,20 @@ class ChatOverviewPage extends StatelessWidget {
             if (state is GroupLoading) {
               return const Center(child: CircularProgressIndicator());
             } else if (state is GroupLoaded) {
-              if (state.groupNames.isEmpty) {
+              if (state.groups.isEmpty) {
                 return const Center(child: Text('No groups found.'));
               }
               return ListView.builder(
-                itemCount: state.groupNames.length,
+                itemCount: state.groups.length,
                 itemBuilder: (context, index) {
-                  final groupId = index;
+                  final group = state.groups[index];
                   return ListTile(
-                    title: Text(state.groupNames[index]),
+                    title: Text(group.name),
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => GroupInfoPage(groupId: groupId, groupName: state.groupNames[index]),
+                          builder: (context) => GroupInfoPage(groupId: group.id, groupName: group.name),
                         ),
                       );
                     },
