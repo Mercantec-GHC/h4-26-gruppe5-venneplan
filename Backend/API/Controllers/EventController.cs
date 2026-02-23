@@ -38,7 +38,7 @@ namespace API.Controllers
                         City = e.Host.City,
                         Age = e.Host.Age
                     },
-                    ParticipantCount = e.Participants.Count
+                    ParticipantCount = e.Participants.Count(p => p.IsGoing)
                 })
                 .ToListAsync();
 
@@ -65,7 +65,7 @@ namespace API.Controllers
                         City = e.Host.City,
                         Age = e.Host.Age
                     },
-                    ParticipantCount = e.Participants.Count
+                    ParticipantCount = e.Participants.Count(p => p.IsGoing)
                 })
                 .FirstOrDefaultAsync();
             if(evnt == null)
@@ -95,7 +95,7 @@ namespace API.Controllers
                         City = e.Host.City,
                         Age = e.Host.Age
                     },
-                    ParticipantCount = e.Participants.Count
+                    ParticipantCount = e.Participants.Count(p => p.IsGoing)
                 })
                 .ToListAsync();
             if(evnt == null)
@@ -144,7 +144,7 @@ namespace API.Controllers
                         City = e.Host.City,
                         Age = e.Host.Age
                     },
-                    ParticipantCount = e.Participants.Count
+                    ParticipantCount = e.Participants.Count(p => p.IsGoing)
                 })
                 .FirstOrDefaultAsync();
 
@@ -198,7 +198,7 @@ namespace API.Controllers
                         City = e.Host.City,
                         Age = e.Host.Age
                     },
-                    ParticipantCount = e.Participants.Count
+                    ParticipantCount = e.Participants.Count(p => p.IsGoing)
                 })
                 .FirstOrDefaultAsync();
             
