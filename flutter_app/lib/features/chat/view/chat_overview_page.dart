@@ -1,3 +1,4 @@
+import 'group_info_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,13 +10,26 @@ import '../../../data/repositories/group_repository_impl.dart';
 import '../../../data/datasources/group_remote_datasource.dart';
 import '../../../core/api/api_client.dart';
 
+
 class ChatOverviewPage extends StatelessWidget {
   const ChatOverviewPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Groups Overview')),
+      appBar: AppBar(
+        title: const Text('Groups Overview'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () {
+              final bloc = BlocProvider.of<GroupBloc>(context);
+              bloc.add(LoadGroups());
+            },
+            tooltip: 'Refresh',
+          ),
+        ],
+      ),
       body: BlocProvider(
         create: (context) => GroupBloc(
           repository: GroupRepositoryImpl(
@@ -29,14 +43,23 @@ class ChatOverviewPage extends StatelessWidget {
             if (state is GroupLoading) {
               return const Center(child: CircularProgressIndicator());
             } else if (state is GroupLoaded) {
-              if (state.groupNames.isEmpty) {
+              if (state.groups.isEmpty) {
                 return const Center(child: Text('No groups found.'));
               }
               return ListView.builder(
-                itemCount: state.groupNames.length,
+                itemCount: state.groups.length,
                 itemBuilder: (context, index) {
+                  final group = state.groups[index];
                   return ListTile(
-                    title: Text(state.groupNames[index]),
+                    title: Text(group.name),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => GroupInfoPage(groupId: group.id, groupName: group.name),
+                        ),
+                      );
+                    },
                   );
                 },
               );
