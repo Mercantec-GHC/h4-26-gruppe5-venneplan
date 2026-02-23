@@ -8,8 +8,8 @@ final appTheme = ThemeData(
   cardColor: AppColors.card,
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     backgroundColor: AppColors.primary,
-    selectedItemColor: Colors.black,
-    unselectedItemColor: Colors.grey,
+    selectedItemColor: Color(0xFFF2B705),
+    unselectedItemColor: Colors.white,
   ),
   textTheme: const TextTheme(
     headlineMedium: AppTextStyles.headline,
