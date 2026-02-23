@@ -44,6 +44,20 @@ namespace API.Controllers
             return Ok(group);
         }
 
+        // GET: api/Groups/members/5
+        [HttpGet("getGroupMembers/{groupId}")]
+        public async Task<ActionResult<IEnumerable<GroupMemberDTO>>> GetGroupMembers([FromRoute] int groupId)
+        {
+            var members = await _context.GroupMembers
+                .Where(gm => gm.GroupId == groupId)
+                .Include(gm => gm.User)
+                .Select(gm => gm.User != null ? gm.User.Name : null)
+                .Where(name => name != null)
+                .ToListAsync();
+
+            return Ok(members);
+        }
+
         // PUT: api/Groups/5
         [HttpPut("Edit/{id}")]
         public async Task<IActionResult> PutGroup([FromRoute] int id, [FromBody] SingularGroupDTO groupDto)
