@@ -6,6 +6,11 @@ final appTheme = ThemeData(
   colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
   scaffoldBackgroundColor: AppColors.background,
   cardColor: AppColors.card,
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    backgroundColor: AppColors.primary,
+    selectedItemColor: Colors.black,
+    unselectedItemColor: Colors.grey,
+  ),
   textTheme: const TextTheme(
     headlineMedium: AppTextStyles.headline,
     titleMedium: AppTextStyles.title,
