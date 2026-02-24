@@ -124,6 +124,7 @@ class _MainNavigationState extends State<MainNavigation> {
             icon: Icon(Icons.person_add),
             label: 'Register',
           ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.group_add),
             label: 'Create Group'),
         ],
