@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/features/events/view/Event_page.dart';
 import 'package:flutter_app/features/chat/view/chat_overview_page.dart';
+import 'package:flutter_app/features/register/view/register_overview_page.dart';
+import 'package:flutter_app/features/login/view/login_overview_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/config/app_config.dart';
 import 'core/di/injection.dart';
@@ -92,6 +94,8 @@ class _MainNavigationState extends State<MainNavigation> {
     InfographicPage(),
     EventPage(),
     ChatOverviewPage(),
+    LoginOverviewPage(),
+    RegisterOverviewPage(),
   ];
 
   @override
@@ -113,13 +117,22 @@ class _MainNavigationState extends State<MainNavigation> {
           BottomNavigationBarItem(
             icon: Icon(Icons.info_outline),
             label: 'BLoC',
-          ),BottomNavigationBarItem(
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today),
             label: 'Events',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.chat),
             label: 'Chat',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.login),
+            label: 'Login',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_add),
+            label: 'Register',
           ),
         ],
       ),

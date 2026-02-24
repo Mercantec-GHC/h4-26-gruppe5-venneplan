@@ -6,10 +6,10 @@ class LoginRemoteDataSource {
 
   LoginRemoteDataSource({required this.apiClient});
 
-  Future<ApiResult<String>> login(String username, String password) async {
+  Future<ApiResult<String>> login(String email, String password) async {
     return await apiClient.post<String>(
-      '/Auth/login',
-      body: {'username': username, 'password': password},
+      '/Users/login',
+      body: {'email': email, 'password': password},
       fromJson: (json) {
         if (json is Map<String, dynamic> && json.containsKey('token')) {
           return json['token'] as String;

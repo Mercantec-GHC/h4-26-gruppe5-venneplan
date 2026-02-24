@@ -1,24 +1,27 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'login_event.dart';
-import 'login_state.dart' as login_state;
-import '../../../data/repositories/login_repository_impl.dart';
 
-class LoginBloc extends Bloc<LoginEvent, login_state.LoginState> {
+import 'login_event.dart';
+import 'login_state.dart';
+import '/../../data/repositories/login_repository_impl.dart';
+
+class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final LoginRepositoryImpl repository;
 
-  LoginBloc({required this.repository}) : super(login_state.LoginInitial()) {
-    on<LoginButtonPressed>((event, emit) async {
-      emit(login_state.LoginLoading());
-      try {
-        final success = await repository.login(event.username, event.password);
-        if (success) {
-          emit(login_state.LoginSuccess());
-        } else {
-          emit(login_state.LoginFailure('Invalid credentials'));
-        }
-      } catch (e) {
-        emit(login_state.LoginFailure(e.toString()));
-      }
-    });
+  LoginBloc({required this.repository}) : super(LoginInitial()) {
+    on<LoginSubmitted>(_onLoginSubmitted);
+  }
+
+  Future<void> _onLoginSubmitted(
+    LoginSubmitted event,
+    Emitter<LoginState> emit,
+  ) async {
+    emit(LoginLoading());
+
+    try {
+      await repository.login(event.email, event.password);
+      emit(LoginSuccess());
+    } catch (e) {
+      emit(LoginFailure(e.toString()));
+    }
   }
 }
