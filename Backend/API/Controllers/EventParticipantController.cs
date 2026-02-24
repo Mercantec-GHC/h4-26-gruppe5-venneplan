@@ -57,31 +57,48 @@ namespace API.Controllers
         }
 
         [HttpGet("participants")]
-        public async Task<ActionResult<IEnumerable<EventParticipant>>> GetParticipants()
+        public async Task<ActionResult<IEnumerable<GetParticipantDTO>>> GetParticipants()
         {
             var participants = await _context.EventParticipants
-                .Include(ep => ep.User)
-                .Include(ep => ep.Event)
+                .Select(ep => new GetParticipantDTO
+                {
+                    Id = ep.Id,
+                    EventId = ep.EventId,
+                    UserId = ep.UserId,
+                    IsGoing = ep.IsGoing
+                })
                 .ToListAsync();
             return Ok(participants);
         }
 
         [HttpGet("participants/{eventId}")]
-        public async Task<ActionResult<IEnumerable<EventParticipant>>> GetParticipantsByEvent(int eventId)
+        public async Task<ActionResult<IEnumerable<GetParticipantDTO>>> GetParticipantsByEvent(int eventId)
         {
             var participants = await _context.EventParticipants
                 .Where(ep => ep.EventId == eventId)
-                .Include(ep => ep.User)
+                .Select(ep => new GetParticipantDTO
+                {
+                    Id = ep.Id,
+                    EventId = ep.EventId,
+                    UserId = ep.UserId,
+                    IsGoing = ep.IsGoing
+                })
                 .ToListAsync();
             return Ok(participants);
         }
 
         [HttpGet("participants/user/{userId}")]
-        public async Task<ActionResult<IEnumerable<EventParticipant>>> GetEventsByUser(int userId)
+        public async Task<ActionResult<IEnumerable<GetParticipantDTO>>> GetEventsByUser(int userId)
         {
             var events = await _context.EventParticipants
                 .Where(ep => ep.UserId == userId)
-                .Include(ep => ep.Event)
+                .Select(ep => new GetParticipantDTO
+                {
+                    Id = ep.Id,
+                    EventId = ep.EventId,
+                    UserId = ep.UserId,
+                    IsGoing = ep.IsGoing
+                })
                 .ToListAsync();
             return Ok(events);
         }
@@ -100,14 +117,17 @@ namespace API.Controllers
         }
 
         [HttpPut("participants/{id}")]
-        public async Task<IActionResult> UpdateParticipantStatus(int id, [FromBody] bool isGoing)
+        public async Task<IActionResult> UpdateParticipantStatus(
+            int id,
+            [FromBody] UpdateParticipantStatusDTO dto
+        )
         {
             var participant = await _context.EventParticipants.FindAsync(id);
             if(participant == null)
             {
                 return NotFound("Participant not found.");
             }
-            participant.IsGoing = isGoing;
+            participant.IsGoing = dto.IsGoing;
             await _context.SaveChangesAsync();
             return Ok(new { message = "Participant status updated successfully" });
         }
