@@ -61,6 +61,7 @@ namespace API.Controllers
             {
                 Email = dto.Email,
                 Name = dto.Name,
+                UserTag = dto.UserTag,
                 HashedPassword = hashedPassword,
                 City = dto.City,
                 Gender = dto.Gender,

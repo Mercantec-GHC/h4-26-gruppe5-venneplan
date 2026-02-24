@@ -4,6 +4,7 @@
     {
         public required string Email { get; set; }
         public required string Name { get; set; }
+        public required string UserTag { get; set; }
         public required string HashedPassword { get; set; }
         public required string Salt { get; set; }
         public DateTime LastLogin { get; set; }

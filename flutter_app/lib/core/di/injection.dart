@@ -1,8 +1,8 @@
 import 'package:get_it/get_it.dart';
-import '../../data/datasources/weather_remote_datasource.dart';
-import '../../data/repositories/weather_repository_impl.dart';
-import '../../domain/repositories/weather_repository.dart';
-import '../../features/weather/bloc/weather_bloc.dart';
+import '../../data/datasources/event_remote_datasource.dart';
+import '../../data/repositories/event_repository_impl.dart';
+import '../../domain/repositories/event_repository.dart';
+import '../../features/events/bloc/event_bloc.dart';
 import '../api/api_client.dart';
 
 /// Dependency Injection Container
@@ -49,8 +49,9 @@ Future<void> setupDependencyInjection() async {
   // Data Sources
   // ============================================================
   // Remote data sources
-  getIt.registerLazySingleton<WeatherRemoteDataSource>(
-    () => WeatherRemoteDataSourceImpl(
+
+  getIt.registerLazySingleton<EventRemoteDataSource>(
+    () => EventRemoteDataSource(
       apiClient: getIt<ApiClient>(),
     ),
   );
@@ -65,10 +66,10 @@ Future<void> setupDependencyInjection() async {
   // ============================================================
   // Registrer som interface type (WeatherRepository)
   // så BLoC kun afhænger af interface, ikke implementation
-  getIt.registerLazySingleton<WeatherRepository>(
-    () => WeatherRepositoryImpl(
-      remoteDataSource: getIt<WeatherRemoteDataSource>(),
-      // localDataSource: getIt<WeatherLocalDataSource>(), // når caching tilføjes
+
+  getIt.registerLazySingleton<EventRepository>(
+    () => EventRepositoryImpl(
+      remoteDataSource: getIt<EventRemoteDataSource>(),
     ),
   );
 
@@ -84,9 +85,10 @@ Future<void> setupDependencyInjection() async {
   // ============================================================
   // Factory fordi vi vil have ny instance hver gang
   // (BLoCs skal ikke deles mellem widgets)
-  getIt.registerFactory<WeatherBloc>(
-    () => WeatherBloc(
-      repository: getIt<WeatherRepository>(),
+
+  getIt.registerFactory<EventBloc>(
+    () => EventBloc(
+      repository: getIt<EventRepository>(),
     ),
   );
 
