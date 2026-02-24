@@ -14,7 +14,7 @@ class RegisterRemoteDataSourceImpl implements RegisterRemoteDataSource {
   @override
   Future<ApiResult<String>> register(RegisterModel user) async {
     return await apiClient.post<String>(
-      '/users/register',
+      '/Users/register',
       body: user.toJson(),
       fromJson: (json) {
         if (json is Map<String, dynamic> && json.containsKey('message')) {
