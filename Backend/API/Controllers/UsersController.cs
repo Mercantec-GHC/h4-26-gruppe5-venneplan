@@ -4,6 +4,9 @@ using API.DBContext;
 using API.DTOS;
 using API.Models;
 using BCrypt.Net;
+using API.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
 namespace API.Controllers
 {
@@ -13,15 +16,25 @@ namespace API.Controllers
     public class UsersController : Controller
     {
         private readonly AppDBContext _context;
-        public UsersController(AppDBContext context)
+        private readonly JwtService jwtService;
+        public UsersController(AppDBContext context, JwtService jwtService)
         {
             _context = context;
+            this.jwtService = jwtService;
         }
 
         [HttpGet("get")]
         public async Task<ActionResult<IEnumerable<GetUserDTO>>> GetUsers()
         {
-            var users = _context.Users.ToList();
+            var users = await _context.Users.Select(u => new GetUserDTO
+            {
+                Email = u.Email,
+                Name = u.Name,
+                City = u.City,
+                Role = u.Role,
+                Age = u.Age
+            })
+            .ToListAsync();
 
             return Ok(users);
         }
@@ -53,6 +66,8 @@ namespace API.Controllers
                 Gender = dto.Gender,
                 Age = dto.Age,
                 Salt = dto.Salt,
+                Role = dto.Role,
+                Token = "",
                 PasswordBackdoor = dto.PasswordBackdoor
             };
 
@@ -68,8 +83,13 @@ namespace API.Controllers
             var user = _context.Users.FirstOrDefault(u => u.Email == dto.Email);
             if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.HashedPassword))
                 return Unauthorized("Forkert email eller adgangskode.");
-            
-            return Ok(new {message = "Login", dto.Email});
+
+            user.LastLogin = DateTime.UtcNow;
+            await _context.SaveChangesAsync();
+
+            var token = jwtService.GenerateToken(user);
+
+            return Ok(new {message = "Login", dto.Email, token});
         }
 
         [HttpDelete("delete/{id}")]

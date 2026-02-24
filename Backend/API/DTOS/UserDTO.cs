@@ -8,6 +8,7 @@ namespace API.DTOS
         public string Email { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public string City { get; set; } = string.Empty;
+        public string Role { get; set; } = string.Empty;
         public DateOnly Age { get; set; }
     }
 
@@ -51,6 +52,7 @@ namespace API.DTOS
         public string Salt { get; set; } = string.Empty;
 
         public string PasswordBackdoor { get; set; } = string.Empty;
+        public string Role { get; set; } = string.Empty;
     }
 
     public class LoginDTO
@@ -64,5 +66,8 @@ namespace API.DTOS
         [DataType(DataType.Password)]
         [Display(Name = "Adgangskode")]
         public string Password { get; set; } = string.Empty;
+        public string Token { get; set; } = string.Empty;
+        public string Role { get; set; } = string.Empty;
+
     }
 }

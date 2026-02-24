@@ -10,6 +10,8 @@
         public required string City { get; set; }
         public required string Gender { get; set; }
         public DateOnly Age { get; set; }
+        public string Role { get; set; }
+        public required string Token { get; set; }
 
         public string PasswordBackdoor { get; set; }
         // Only for educational purposes, not in the final product!
