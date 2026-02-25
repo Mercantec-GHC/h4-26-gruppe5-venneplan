@@ -41,8 +41,6 @@ namespace API.Migrations
                     City = table.Column<string>(type: "text", nullable: false),
                     Gender = table.Column<string>(type: "text", nullable: false),
                     Age = table.Column<DateOnly>(type: "date", nullable: false),
-                    Role = table.Column<string>(type: "text", nullable: false),
-                    Token = table.Column<string>(type: "text", nullable: false),
                     PasswordBackdoor = table.Column<string>(type: "text", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -83,10 +81,9 @@ namespace API.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserId = table.Column<int>(type: "integer", nullable: false),
-                    FriendId = table.Column<int>(type: "integer", nullable: false),
-                    FriendScore = table.Column<int>(type: "integer", nullable: false),
-                    FriendRequestStatus = table.Column<string>(type: "text", nullable: false),
+                    userId = table.Column<int>(type: "integer", nullable: false),
+                    friendId = table.Column<int>(type: "integer", nullable: false),
+                    friendScore = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -94,8 +91,8 @@ namespace API.Migrations
                 {
                     table.PrimaryKey("PK_Friends", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Friends_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Friends_Users_userId",
+                        column: x => x.userId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -174,9 +171,9 @@ namespace API.Migrations
                 column: "HostId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Friends_UserId",
+                name: "IX_Friends_userId",
                 table: "Friends",
-                column: "UserId");
+                column: "userId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_GroupMembers_GroupId",
