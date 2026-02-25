@@ -3,6 +3,7 @@ import 'package:flutter_app/features/chat/bloc/group_bloc.dart';
 import 'package:flutter_app/features/events/bloc/event_bloc.dart';
 import 'package:flutter_app/features/events/view/Event_page.dart';
 import 'package:flutter_app/features/chat/view/chat_overview_page.dart';
+import 'package:flutter_app/features/chat/view/group_overview_page.dart';
 import 'package:flutter_app/features/chat/view/create_group_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/config/app_config.dart';
@@ -88,7 +89,8 @@ class _MainNavigationState extends State<MainNavigation> {
 
   static final List<Widget> _pages = <Widget>[
     EventPage(eventId: 3), // Eksempel eventId, kan ændres
-    ChatOverviewPage(),
+    GroupOverviewPage(),
+    //ChatOverviewPage(),
     CreateGroupPage(),
   ];
 
@@ -113,8 +115,13 @@ class _MainNavigationState extends State<MainNavigation> {
             label: 'Chat',
           ),
           BottomNavigationBarItem(
+            icon:   Icon(Icons.group), 
+            label: 'Groups'
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.group_add),
-            label: 'Create Group'),
+            label: 'Create Group'
+          ),
         ],
       ),
     );

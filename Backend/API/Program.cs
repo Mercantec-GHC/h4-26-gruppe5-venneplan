@@ -1,8 +1,8 @@
-﻿using API.DBContext;
+﻿using API.Controllers;
+using API.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using System;
-using API.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +21,7 @@ builder.Services.AddDbContext<AppDBContext>(options =>
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSignalR();
 
 builder.Services.AddControllers();
 
