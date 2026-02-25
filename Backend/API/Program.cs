@@ -1,7 +1,9 @@
 ﻿﻿using API.Controllers;
 using API.DBContext;
 using API.Services;
+using API.Hubs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
@@ -52,6 +54,15 @@ public class Program
         });
         
         builder.Services.AddControllers();
+
+        builder.Services.AddSignalR();
+
+        // Used for SignalR
+        builder.Services.AddResponseCompression(opts =>
+        {
+            opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
+                new[] { "application/octet-stream" });
+        });
 
         // JWT Authentication setup
         // Registrer JWT Service
@@ -129,6 +140,9 @@ public class Program
 
         var app = builder.Build();
 
+        // Used for SignalR
+        app.UseResponseCompression();
+
         app.MapDefaultEndpoints();
 
         // Configure the HTTP request pipeline.
@@ -136,6 +150,9 @@ public class Program
         app.UseForwardedHeaders();
 
         app.MapOpenApi();
+
+        // SignalR Hub endpoint
+        app.MapHub<ChatHub>("/chathub");
 
         // Enable Swagger UI (klassisk dokumentation (Med Darkmode))
         app.UseSwaggerUI(options =>

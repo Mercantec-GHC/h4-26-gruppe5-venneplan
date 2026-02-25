@@ -91,8 +91,8 @@ class _MainNavigationState extends State<MainNavigation> {
 
   static final List<Widget> _pages = <Widget>[
     EventPage(eventId: 3), // Eksempel eventId, kan ændres
+    ChatOverviewPage(),
     GroupOverviewPage(),
-    //ChatOverviewPage(),
     LoginOverviewPage(),
     RegisterOverviewPage(),
     CreateGroupPage(),

@@ -1,1 +1,1 @@
-// widgets have been unused for now, supposed to hold each widget on a page, to keep view cleaner
+// Widgets have been unused for now, supposed to hold each widget on a page, to keep view cleaner
