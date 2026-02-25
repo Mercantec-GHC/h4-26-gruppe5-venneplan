@@ -92,23 +92,33 @@ class EventRemoteDataSource {
         'eventId': eventId,
         'isGoing': isGoing,
       },
-      fromJson: (_) => true,
+      fromJson: (json) {
+        if (json is Map<String, dynamic>) {
+          return EventParticipantData.fromJson(json);
+        }
+        throw FormatException('Expected JSON object, got ${json.runtimeType}');
+      },
     );
   }
 
-  Future<ApiResult<bool>> addParticipant(
+  Future<ApiResult<EventParticipantData>> addParticipant(
     int eventId,
     int userId,
     bool isGoing,
   ) async {
-    return await apiClient.post<bool>(
+    return await apiClient.post<EventParticipantData>(
       '/EventParticipant/participants',
       body: {
         'eventId': eventId,
         'userId': userId,
         'isGoing': isGoing,
       },
-      fromJson: (_) => true,
+      fromJson: (json) {
+        if (json is Map<String, dynamic>) {
+          return EventParticipantData.fromJson(json);
+        }
+        throw FormatException('Expected JSON object, got ${json.runtimeType}');
+      },
     );
   }
 
