@@ -3,6 +3,8 @@ import 'package:flutter_app/features/chat/bloc/group_bloc.dart';
 import 'package:flutter_app/features/events/bloc/event_bloc.dart';
 import 'package:flutter_app/features/events/view/Event_page.dart';
 import 'package:flutter_app/features/chat/view/chat_overview_page.dart';
+import 'package:flutter_app/features/register/view/register_overview_page.dart';
+import 'package:flutter_app/features/login/view/login_overview_page.dart';
 import 'package:flutter_app/features/chat/view/create_group_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/config/app_config.dart';
@@ -89,6 +91,8 @@ class _MainNavigationState extends State<MainNavigation> {
   static final List<Widget> _pages = <Widget>[
     EventPage(eventId: 3), // Eksempel eventId, kan ændres
     ChatOverviewPage(),
+    LoginOverviewPage(),
+    RegisterOverviewPage(),
     CreateGroupPage(),
   ];
 
@@ -111,6 +115,14 @@ class _MainNavigationState extends State<MainNavigation> {
           BottomNavigationBarItem(
             icon: Icon(Icons.chat),
             label: 'Chat',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.login),
+            label: 'Login',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_add),
+            label: 'Register',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.group_add),
