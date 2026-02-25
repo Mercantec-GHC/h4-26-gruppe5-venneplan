@@ -1,3 +1,5 @@
+
+import 'package:flutter_app/features/events/model/create_event_data.dart';
 import 'package:flutter_app/features/events/model/event_data.dart';
 import 'package:flutter_app/features/events/model/event_participant_data.dart';
 import '../../core/api/api_client.dart';
@@ -7,6 +9,24 @@ class EventRemoteDataSource {
   final ApiClient apiClient;
 
   EventRemoteDataSource({required this.apiClient});
+
+  Future<ApiResult<List<EventData>>> fetchEvents() async {
+    return await apiClient.get<List<EventData>>(
+      '/Event',
+      fromJson: (json) {
+        if (json is List) {
+          return json
+              .map(
+                (item) => EventData.fromJson(
+                  item as Map<String, dynamic>,
+                ),
+              )
+              .toList();
+        }
+        throw FormatException('Expected JSON list, got ${json.runtimeType}');
+      },
+    );
+  }
 
   Future<ApiResult<EventData>> fetchEvent(int id) async {
     return await apiClient.get<EventData>(
@@ -25,6 +45,26 @@ class EventRemoteDataSource {
   ) async {
     return await apiClient.get<List<EventParticipantData>>(
       '/EventParticipant/participants/$eventId',
+      fromJson: (json) {
+        if (json is List) {
+          return json
+              .map(
+                (item) => EventParticipantData.fromJson(
+                  item as Map<String, dynamic>,
+                ),
+              )
+              .toList();
+        }
+        throw FormatException('Expected JSON list, got ${json.runtimeType}');
+      },
+    );
+  }
+
+  Future<ApiResult<List<EventParticipantData>>> fetchParticipantsByUser(
+    int userId,
+  ) async {
+    return await apiClient.get<List<EventParticipantData>>(
+      '/EventParticipant/participants/user/$userId',
       fromJson: (json) {
         if (json is List) {
           return json
@@ -69,6 +109,16 @@ class EventRemoteDataSource {
         'isGoing': isGoing,
       },
       fromJson: (_) => true,
+    );
+  }
+
+  Future<ApiResult<EventData>> createEvent(
+    CreateEventData event,
+  ) async {
+    return await apiClient.post<EventData>(
+      '/Event',
+      body: event.toJson(),
+      fromJson: (json) => EventData.fromJson(json as Map<String, dynamic>),
     );
   }
 }

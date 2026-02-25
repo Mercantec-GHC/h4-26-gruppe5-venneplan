@@ -104,6 +104,7 @@ class EventPage extends StatelessWidget {
                                     isGoing: false,
                                   ),
                                 );
+                                
                           },
                           child: const Text('Decline'),
                         ),
