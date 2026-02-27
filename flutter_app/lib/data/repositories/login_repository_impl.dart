@@ -1,4 +1,4 @@
-import 'package:flutter_app/domain/repositories/login_repository.dart';
+import '../../domain/repositories/login_repository.dart';
 import '../datasources/login_remote_datasource.dart';
 
 class LoginRepositoryImpl implements LoginRepository{

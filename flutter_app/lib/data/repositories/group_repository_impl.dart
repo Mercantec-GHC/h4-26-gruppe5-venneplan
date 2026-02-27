@@ -1,4 +1,4 @@
-import 'package:flutter_app/core/api/api_result.dart';
+import '../../core/api/api_result.dart';
 import '../../domain/repositories/group_repository.dart';
 import '../datasources/group_remote_datasource.dart';
 import '../models/group.dart';

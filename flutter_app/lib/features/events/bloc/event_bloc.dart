@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import '../../../domain/repositories/event_repository.dart';
 import '../model/event_data.dart';
-
 import 'event_event.dart';
 import 'event_state.dart';
 
