@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import '../config/app_config.dart';
 import 'api_interceptor.dart';
 import 'api_result.dart';

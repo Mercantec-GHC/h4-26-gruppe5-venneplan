@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/features/chat/bloc/group_bloc.dart';
+import 'package:flutter_app/features/events/bloc/event_bloc.dart';
 import 'package:flutter_app/features/events/view/Event_page.dart';
 import 'package:flutter_app/features/chat/view/chat_overview_page.dart';
 import 'package:flutter_app/features/front_page/view/frontpage_page.dart';
+import 'package:flutter_app/features/register/view/register_overview_page.dart';
+import 'package:flutter_app/features/login/view/login_overview_page.dart';
+import 'package:flutter_app/features/chat/view/create_group_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/config/app_config.dart';
 import 'core/di/injection.dart';
-import 'features/weather/bloc/weather_bloc.dart';
 import 'core/theme/theme.dart';
 
 /// Main entry point
@@ -58,13 +62,12 @@ class MyApp extends StatelessWidget {
         // Weather BLoC - injected via DI
         // Factory registration giver os ny instance hver gang
         BlocProvider(
-          create: (context) => getIt<WeatherBloc>(),
+          create: (context) => getIt<GroupBloc>(),
         ),
-        
-        // Remember: Tilføj flere BLoCs her efterhånden:
-        // BlocProvider(
-        //   create: (context) => getIt<LoginBloc>(),
-        // ),
+        BlocProvider(
+          create: (context) => getIt<EventBloc>()  
+        ),
+        // Add extra BLoCs for each new page
       ],
       child: MaterialApp(
         title: 'Venneplan',
@@ -90,6 +93,9 @@ class _MainNavigationState extends State<MainNavigation> {
     FrontpagePage(userId: 1), // Eksempel userId, kan ændres
     EventPage(eventId: 3), // Eksempel eventId, kan ændres
     ChatOverviewPage(),
+    LoginOverviewPage(),
+    RegisterOverviewPage(),
+    CreateGroupPage(),
   ];
 
   @override
@@ -116,6 +122,17 @@ class _MainNavigationState extends State<MainNavigation> {
             icon: Icon(Icons.chat),
             label: 'Chat',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.login),
+            label: 'Login',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_add),
+            label: 'Register',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.group_add),
+            label: 'Create Group'),
         ],
       ),
     );
