@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 
+import '../model/create_event_data.dart';
 abstract class EventEvent extends Equatable {
   const EventEvent();
 
@@ -14,6 +15,15 @@ class LoadEvent extends EventEvent {
 
   @override
   List<Object?> get props => [eventId];
+}
+
+class CreateEvent extends EventEvent {
+  final CreateEventData eventCreateData;
+
+  const CreateEvent(this.eventCreateData);
+
+  @override
+  List<Object?> get props => [eventCreateData];
 }
 
 class UpdateParticipantStatus extends EventEvent {

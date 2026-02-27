@@ -118,10 +118,12 @@ namespace API.Controllers
             {
                 Title = createDto.Title,
                 Adress = createDto.Adress,
-                Date = DateTime.UtcNow,
+                Date = createDto.Date,
                 Description = createDto.Description,
                 HostId = createDto.HostId,
                 Host = host,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
             };
 
             _context.Events.Add(newEvent);

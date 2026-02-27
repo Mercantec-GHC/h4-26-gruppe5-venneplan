@@ -58,6 +58,7 @@ dependencies:
   # Code highlighting
   flutter_highlight: ^0.7.0
   http: ^1.6.0
+  flutter_datetime_picker_plus: ^2.2.0
   bloc: ^9.2.0
 
 dev_dependencies:
