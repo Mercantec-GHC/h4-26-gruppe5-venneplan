@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import '../../../domain/entities/chat_entity.dart';
-import '../model/chat_data.dart';
+import '../../../../domain/entities/chat_entity.dart';
+import '../../model/chat_data.dart';
 
 /// Base class for alle Chat states
 /// 

@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/features/chat/bloc/group_bloc.dart';
-import 'package:flutter_app/features/events/bloc/event_bloc.dart';
-import 'package:flutter_app/features/events/view/Event_page.dart';
-import 'package:flutter_app/features/chat/view/chat_overview_page.dart';
-import 'package:flutter_app/features/register/view/register_overview_page.dart';
-import 'package:flutter_app/features/login/view/login_overview_page.dart';
-import 'package:flutter_app/features/chat/view/create_group_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'core/config/app_config.dart';
 import 'core/di/injection.dart';
 import 'core/theme/theme.dart';
+// Pages
+import '/features/chat/bloc/group/group_bloc.dart';
+import '/features/events/bloc/event_bloc.dart';
+import '/features/events/view/Event_page.dart';
+import '/features/chat/view/chat_overview_page.dart';
+import '/features/chat/view/group_overview_page.dart';
+import '/features/register/view/register_overview_page.dart';
+import '/features/login/view/login_overview_page.dart';
+import '/features/chat/view/create_group_page.dart';
 
 /// Main entry point
 /// 
@@ -91,9 +94,10 @@ class _MainNavigationState extends State<MainNavigation> {
   static final List<Widget> _pages = <Widget>[
     EventPage(eventId: 3), // Eksempel eventId, kan ændres
     ChatOverviewPage(),
+    GroupOverviewPage(),
+    CreateGroupPage(),
     LoginOverviewPage(),
     RegisterOverviewPage(),
-    CreateGroupPage(),
   ];
 
   @override
@@ -117,6 +121,14 @@ class _MainNavigationState extends State<MainNavigation> {
             label: 'Chat',
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.group), 
+            label: 'Groups'
+          ),
+            BottomNavigationBarItem(
+            icon: Icon(Icons.group_add),
+            label: 'Create Group'
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.login),
             label: 'Login',
           ),
@@ -124,9 +136,6 @@ class _MainNavigationState extends State<MainNavigation> {
             icon: Icon(Icons.person_add),
             label: 'Register',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.group_add),
-            label: 'Create Group'),
         ],
       ),
     );

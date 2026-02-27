@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+
 import 'package:flutter_app/domain/repositories/event_repository.dart';
 import 'package:flutter_app/features/events/model/event_data.dart';
 

@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+
 import 'package:flutter_app/features/events/model/event_data.dart';
 
 abstract class EventState extends Equatable {

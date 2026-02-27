@@ -1,4 +1,4 @@
-import 'package:flutter_app/core/api/api_result.dart';
+import '../../core/api/api_result.dart';
 import '../../domain/repositories/user_repository.dart';
 import '../datasources/user_remote_datasource.dart';
 
