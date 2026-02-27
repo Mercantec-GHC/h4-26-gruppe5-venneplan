@@ -1,8 +1,8 @@
 import '../../../core/api/api_result.dart';
-import 'package:flutter_app/domain/repositories/event_repository.dart';
-import 'package:flutter_app/features/events/model/event_data.dart';
-import 'package:flutter_app/features/events/model/create_event_data.dart';
-import 'package:flutter_app/features/events/model/event_participant_data.dart';
+import '../../domain/repositories/event_repository.dart';
+import '../../features/events/model/event_data.dart';
+import '../../features/events/model/create_event_data.dart';
+import '../../features/events/model/event_participant_data.dart';
 import '../datasources/event_remote_datasource.dart';
 
 class EventRepositoryImpl implements EventRepository {

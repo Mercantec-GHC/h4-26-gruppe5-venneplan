@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_app/features/events/model/event_data.dart';
+import '../../events/model/event_data.dart';
 
 abstract class FrontpageState extends Equatable {
   const FrontpageState();
