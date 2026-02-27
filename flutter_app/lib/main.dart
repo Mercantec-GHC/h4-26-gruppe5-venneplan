@@ -95,9 +95,9 @@ class _MainNavigationState extends State<MainNavigation> {
     EventPage(eventId: 3), // Eksempel eventId, kan ændres
     ChatOverviewPage(),
     GroupOverviewPage(),
+    CreateGroupPage(),
     LoginOverviewPage(),
     RegisterOverviewPage(),
-    CreateGroupPage(),
   ];
 
   @override
@@ -121,8 +121,12 @@ class _MainNavigationState extends State<MainNavigation> {
             label: 'Chat',
           ),
           BottomNavigationBarItem(
-            icon:   Icon(Icons.group), 
+            icon: Icon(Icons.group), 
             label: 'Groups'
+          ),
+            BottomNavigationBarItem(
+            icon: Icon(Icons.group_add),
+            label: 'Create Group'
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.login),
@@ -131,10 +135,6 @@ class _MainNavigationState extends State<MainNavigation> {
           BottomNavigationBarItem(
             icon: Icon(Icons.person_add),
             label: 'Register',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.group_add),
-            label: 'Create Group'
           ),
         ],
       ),
