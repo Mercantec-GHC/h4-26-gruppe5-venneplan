@@ -80,12 +80,12 @@ class EventRemoteDataSource {
     );
   }
 
-  Future<ApiResult<bool>> updateParticipantStatus(
+  Future<ApiResult<EventParticipantData>> updateParticipantStatus(
     int participantId,
     int eventId,
     bool isGoing,
   ) async {
-    return await apiClient.put<bool>(
+    return await apiClient.put<EventParticipantData>(
       '/EventParticipant/participants/$participantId',
       body: {
         'participantId': participantId,

@@ -122,7 +122,7 @@ class EventRepositoryImpl implements EventRepository {
       );
 
       return addResult.when(
-        success: (data) => ApiResult.success(data),
+        success: (_) => ApiResult.success(true),
         failure: (error) => ApiResult.failure(error),
       );
     }
@@ -134,7 +134,7 @@ class EventRepositoryImpl implements EventRepository {
     );
 
     return updateResult.when(
-      success: (data) => ApiResult.success(data),
+      success: (_) => ApiResult.success(true),
       failure: (error) => ApiResult.failure(error),
     );
   }

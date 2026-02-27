@@ -122,6 +122,8 @@ namespace API.Controllers
                 Description = createDto.Description,
                 HostId = createDto.HostId,
                 Host = host,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
             };
 
             _context.Events.Add(newEvent);
