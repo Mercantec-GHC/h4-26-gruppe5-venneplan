@@ -1,7 +1,14 @@
-import 'group_info_page.dart';
 import 'package:flutter/material.dart';
 import 'package:signalr_core/signalr_core.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../bloc/user/user_bloc.dart';
+import '../bloc/user/user_state.dart';
+import '../bloc/user/user_event.dart';
+
+import '../../../data/repositories/user_repository_impl.dart';
+import '../../../data/datasources/user_remote_datasource.dart';
+import '../../../core/api/api_client.dart';
 import '../../../core/config/app_config.dart';
 
 class ChatOverviewPage extends StatefulWidget {
@@ -12,9 +19,9 @@ class ChatOverviewPage extends StatefulWidget {
 }
 
 class _ChatOverviewPageState extends State<ChatOverviewPage> {
-  final _userController = TextEditingController();
   final _messageController = TextEditingController();
   final List<String> _messages = [];
+  String? _selectedUserName;
 
   HubConnection? _hubConnection;
 
@@ -60,7 +67,7 @@ class _ChatOverviewPageState extends State<ChatOverviewPage> {
 
   Future<void> _send() async {
     if (_hubConnection == null) return;
-    final user = _userController.text.trim();
+    final user = _selectedUserName?.trim() ?? '';
     final message = _messageController.text.trim();
     if (user.isEmpty || message.isEmpty) return;
 
@@ -74,7 +81,6 @@ class _ChatOverviewPageState extends State<ChatOverviewPage> {
 
   @override
   void dispose() {
-    _userController.dispose();
     _messageController.dispose();
     _hubConnection?.stop();
     _hubConnection = null;
@@ -83,46 +89,74 @@ class _ChatOverviewPageState extends State<ChatOverviewPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BlocProvider(
+      create: (context) => UserBloc(
+        repository: UserRepositoryImpl(
+          remoteDataSource: UserRemoteDataSource(apiClient: ApiClient()),
+        ),
+      )..add(LoadUsers()),
+      child: Scaffold(
       appBar: AppBar(title: const Text('Chat')),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: _userController,
-              decoration: const InputDecoration(labelText: 'User'),
-            ),
-            const SizedBox(height: 8),
-            Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _messageController,
-                    decoration: const InputDecoration(labelText: 'Message'),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                ElevatedButton(
-                  onPressed: _isConnected ? _send : null,
-                  child: const Text('Send'),
-                ),
-              ],
-            ),
-            const Divider(),
-            Expanded(
-              child: ListView.builder(
-                itemCount: _messages.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(_messages[index]),
-                  );
+        body: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
+            children: [
+              BlocBuilder<UserBloc, dynamic>(
+                builder: (context, state) {
+                  if (state is UserLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (state is UserLoaded) {
+                    return DropdownButton<String>(
+                      value: _selectedUserName,
+                      hint: const Text('Select user'),
+                      isExpanded: true,
+                      items: state.users.map((u) => DropdownMenuItem<String>(
+                        value: u['name']?.toString() ?? '',
+                        child: Text(u['name'] ?? ''),
+                      )).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedUserName = value;
+                        });
+                      },
+                    );
+                  } else if (state is UserError) {
+                    return Text('Error: ${state.message}');
+                  }
+                  return const SizedBox.shrink();
                 },
               ),
-            ),
-            const SizedBox(height: 8),
-            Text(_isConnected ? 'Connected' : 'Disconnected'),
-          ],
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _messageController,
+                      decoration: const InputDecoration(labelText: 'Message'),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  ElevatedButton(
+                    onPressed: (_isConnected && _selectedUserName != null) ? _send : null,
+                    child: const Text('Send'),
+                  ),
+                ],
+              ),
+              const Divider(),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: _messages.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(_messages[index]),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(_isConnected ? 'Connected' : 'Disconnected'),
+            ],
+          ),
         ),
       ),
     );
