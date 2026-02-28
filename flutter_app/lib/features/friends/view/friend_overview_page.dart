@@ -5,6 +5,8 @@ import '../bloc/friend_event.dart';
 import '../bloc/friend_state.dart';
 
 class FriendOverviewPage extends StatelessWidget {
+  const FriendOverviewPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
