@@ -4,6 +4,7 @@ import '../../data/repositories/event_repository_impl.dart';
 import '../../domain/repositories/event_repository.dart';
 import '../../features/events/bloc/event_bloc.dart';
 import '../../data/datasources/friend_remote_datasource.dart';
+import '../../data/datasources/user_remote_datasource.dart';
 import '../../data/repositories/friend_repository_impl.dart';
 import '../../domain/repositories/friend_repository.dart';
 import '../../features/friends/bloc/friend_bloc.dart';
@@ -67,6 +68,13 @@ Future<void> setupDependencyInjection() async {
     ),
   );
 
+  // User remote data source
+  getIt.registerLazySingleton<UserRemoteDataSource>(
+    () => UserRemoteDataSource(
+      apiClient: getIt<ApiClient>(),
+    ),
+  );
+
   // Remember: Tilføj local data source her når I implementerer caching
   // getIt.registerLazySingleton<WeatherLocalDataSource>(
   //   () => WeatherLocalDataSourceImpl(),
@@ -88,6 +96,7 @@ Future<void> setupDependencyInjection() async {
   getIt.registerLazySingleton<FriendRepositoryImpl>(
     () => FriendRepositoryImpl(
       remoteDataSource: getIt<FriendRemoteDataSource>(),
+      userRemoteDataSource: getIt<UserRemoteDataSource>(),
     ),
   );
 

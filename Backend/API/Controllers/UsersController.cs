@@ -28,6 +28,7 @@ namespace API.Controllers
         {
             var users = await _context.Users.Select(u => new GetUserDTO
             {
+                Id = u.Id,
                 Email = u.Email,
                 Name = u.Name,
                 City = u.City,

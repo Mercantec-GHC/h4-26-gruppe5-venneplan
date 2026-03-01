@@ -15,4 +15,12 @@ class UserRepositoryImpl implements UserRepository {
       failure: (error) => ApiResult.failure(error),
     );
   }
+
+  Future<ApiResult<List<Map<String, dynamic>>>> fetchAllUsers() async {
+    final result = await remoteDataSource.fetchAllUsers();
+    return result.when(
+      success: (data) => ApiResult.success(data),
+      failure: (error) => ApiResult.failure(error),
+    );
+  }
 }

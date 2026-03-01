@@ -7,9 +7,9 @@ class FriendRemoteDataSource {
 
   FriendRemoteDataSource({required this.apiClient});
 
-  Future<ApiResult<List<Friend>>> fetchFriends() async {
+  Future<ApiResult<List<Friend>>> fetchFriends(int userId) async {
     return await apiClient.get<List<Friend>>(
-      '/Friends/get',
+      '/Friends/user/$userId',
       fromJson: (json) {
         if (json is List) {
           return json.map((e) => Friend.fromJson(e as Map<String, dynamic>)).toList();
@@ -41,26 +41,27 @@ class FriendRemoteDataSource {
     );
   }
 
-  Future<ApiResult<List<String>>> addFriend(int userId) async {
-    return await apiClient.post<List<String>>(
-      '/Friends/add',
-      body: {'userId': userId},
-      fromJson: (json) {
-        if (json is List) {
-          return json.map((e) {
-            if (e is Map<String, dynamic>) {
-              return e['name'] as String;
-            } else if (e is Map && e.containsKey('name')) {
-              return e['name'] as String;
-            } else if (e is String) {
-              return e;
-            } else {
-              throw FormatException('Unexpected friend entry: $e');
-            }
-          }).toList();
-        }
-        throw FormatException('Expected JSON array, got ${json.runtimeType}');
-      },
-    );
+  Future<ApiResult<void>> addFriend(int currentUserId, int friendId) async {
+    print('DEBUG: FriendRemoteDataSource.addFriend called with currentUserId=$currentUserId, friendId=$friendId');
+    try {
+      final result = await apiClient.post<void>(
+        '/Friends/addFriend',
+        body: {
+          'userId': currentUserId,
+          'friendId': friendId,
+          'friendScore': 0,
+          'friendRequestStatus': 'pending',
+        },
+        fromJson: (json) {
+          // Backend returns the Friend object, but we don't need to parse it
+          return null;
+        },
+      );
+      print('DEBUG: API response received: $result');
+      return result;
+    } catch (e) {
+      print('DEBUG: Exception in addFriend: $e');
+      rethrow;
+    }
   }
 }

@@ -18,15 +18,17 @@ namespace API.Controllers
             _context = context;
         }
 
-        [HttpGet("get")]
-        public async Task<ActionResult<IEnumerable<FriendDTO>>> GetFriends()
+        [HttpGet("user/{userId}")]
+        public async Task<ActionResult<IEnumerable<FriendDTO>>> GetFriends([FromRoute] int userId)
         {
-            var friends = await _context.Friends.ToListAsync();
+            var friends = await _context.Friends
+                .Where(f => f.UserId == userId)
+                .ToListAsync();
 
             return Ok(friends);
         }
 
-        [HttpGet("get/{id}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<FriendDTO>> GetFriend([FromRoute] int id)
         {
             var friend = await _context.Friends.FindAsync(id);

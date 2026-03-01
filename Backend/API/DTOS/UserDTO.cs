@@ -5,6 +5,7 @@ namespace API.DTOS
 {
     public class GetUserDTO
     {
+        public int Id { get; set; }
         public string Email { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public string UserTag { get; set; } = string.Empty;

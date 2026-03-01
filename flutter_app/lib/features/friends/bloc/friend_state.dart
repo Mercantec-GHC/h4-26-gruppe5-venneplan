@@ -28,6 +28,8 @@ class FriendError extends FriendState {
   List<Object?> get props => [message];
 }
 
+/* --- ADD FRIEND STATES --- */
+
 class FriendAdded extends FriendState {}
 
 class FriendAddError extends FriendState {
@@ -36,4 +38,22 @@ class FriendAddError extends FriendState {
 
   @override
   List<Object?> get props => [message];
+}
+
+/* --- USER SEARCH STATES --- */
+
+class UsersLoaded extends FriendState {
+  final List<Map<String, dynamic>> users;
+  const UsersLoaded(this.users);
+
+  @override
+  List<Object?> get props => [users];
+}
+
+class SearchResults extends FriendState {
+  final List<Map<String, dynamic>> results;
+  const SearchResults(this.results);
+
+  @override
+  List<Object?> get props => [results];
 }
