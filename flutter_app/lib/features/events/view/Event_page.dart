@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:flutter_app/features/events/bloc/event_bloc.dart';
 import 'package:flutter_app/features/events/bloc/event_event.dart';
 import 'package:flutter_app/features/events/bloc/event_state.dart';
+
 import 'package:flutter_app/core/di/injection.dart';
 
 class EventPage extends StatelessWidget {
@@ -104,6 +106,7 @@ class EventPage extends StatelessWidget {
                                     isGoing: false,
                                   ),
                                 );
+                                
                           },
                           child: const Text('Decline'),
                         ),

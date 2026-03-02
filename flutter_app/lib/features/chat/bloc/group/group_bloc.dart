@@ -1,7 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'group_event.dart';
 import 'group_state.dart';
-import '../../../data/repositories/group_repository_impl.dart';
+
+import '../../../../data/repositories/group_repository_impl.dart';
 
 class GroupBloc extends Bloc<GroupEvent, GroupState> {
   final GroupRepositoryImpl repository;

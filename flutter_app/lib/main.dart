@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/features/chat/bloc/group_bloc.dart';
-import 'package:flutter_app/features/events/bloc/event_bloc.dart';
-import 'package:flutter_app/features/events/view/Event_page.dart';
-import 'package:flutter_app/features/chat/view/chat_overview_page.dart';
-import 'package:flutter_app/features/chat/view/create_group_page.dart';
+import '/features/chat/bloc/group/group_bloc.dart';
+import '/features/events/bloc/event_bloc.dart';
+import 'features/events/view/event_page.dart';
+import '/features/chat/view/chat_overview_page.dart';
+import '/features/front_page/view/frontpage_page.dart';
+import '/features/register/view/register_overview_page.dart';
+import '/features/login/view/login_overview_page.dart';
+import '/features/chat/view/create_group_page.dart';
+import '/features/chat/view/group_overview_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'core/config/app_config.dart';
 import 'core/di/injection.dart';
 import 'core/theme/theme.dart';
-
 /// Main entry point
 /// 
 /// Initialiserer app dependencies og configuration før app starter.
@@ -87,9 +91,13 @@ class _MainNavigationState extends State<MainNavigation> {
   int _selectedIndex = 0;
 
   static final List<Widget> _pages = <Widget>[
+    FrontpagePage(userId: 1), // Eksempel userId, kan ændres
     EventPage(eventId: 3), // Eksempel eventId, kan ændres
     ChatOverviewPage(),
+    GroupOverviewPage(),
     CreateGroupPage(),
+    LoginOverviewPage(),
+    RegisterOverviewPage(),
   ];
 
   @override
@@ -105,6 +113,10 @@ class _MainNavigationState extends State<MainNavigation> {
         },
         items: const [
           BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Forside',
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today),
             label: 'Events',
           ),
@@ -113,8 +125,21 @@ class _MainNavigationState extends State<MainNavigation> {
             label: 'Chat',
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.group), 
+            label: 'Groups'
+          ),
+            BottomNavigationBarItem(
             icon: Icon(Icons.group_add),
-            label: 'Create Group'),
+            label: 'Create Group'
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.login),
+            label: 'Login',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_add),
+            label: 'Register',
+          ),
         ],
       ),
     );

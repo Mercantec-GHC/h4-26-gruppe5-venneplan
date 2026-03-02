@@ -9,7 +9,7 @@ final appTheme = ThemeData(
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     backgroundColor: AppColors.primary,
     selectedItemColor: Color(0xFFF2B705),
-    unselectedItemColor: Colors.white,
+    unselectedItemColor: Colors.black,
   ),
   textTheme: const TextTheme(
     headlineMedium: AppTextStyles.headline,

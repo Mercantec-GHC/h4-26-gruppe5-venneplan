@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import '../../../data/models/group.dart';
+import '../../../../data/models/group.dart';
 
 abstract class GroupState extends Equatable {
   const GroupState();
