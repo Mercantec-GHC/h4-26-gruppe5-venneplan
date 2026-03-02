@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../bloc/group/group_bloc.dart';
-import '../bloc/group/group_event.dart';
-import '../bloc/group/group_state.dart';
-
+import '../bloc/group_bloc.dart';
+import '../bloc/group_event.dart';
+import '../bloc/group_state.dart';
 import '../../../data/repositories/group_repository_impl.dart';
 import '../../../data/datasources/group_remote_datasource.dart';
 import '../../../core/api/api_client.dart';

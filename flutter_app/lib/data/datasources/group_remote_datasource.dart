@@ -11,7 +11,7 @@ class GroupRemoteDataSource {
       return await apiClient.post<void>(
         '/Groups/create',
         body: {'name': name},
-        fromJson: (_) {},
+        fromJson: (_) => null,
       );
     }
 

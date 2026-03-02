@@ -1,66 +1,13 @@
 import '../../../core/api/api_result.dart';
-import '../../domain/repositories/event_repository.dart';
-import '../../features/events/model/event_data.dart';
-import '../../features/events/model/create_event_data.dart';
-import '../../features/events/model/event_participant_data.dart';
+import 'package:flutter_app/domain/repositories/event_repository.dart';
+import 'package:flutter_app/features/events/model/event_data.dart';
+import 'package:flutter_app/features/events/model/event_participant_data.dart';
 import '../datasources/event_remote_datasource.dart';
 
 class EventRepositoryImpl implements EventRepository {
   final EventRemoteDataSource remoteDataSource;
 
   EventRepositoryImpl({required this.remoteDataSource});
-
-  Future<ApiResult<List<EventData>>> fetchEvents() async {
-    final result = await remoteDataSource.fetchEvents();
-    return result.when(
-      success: (data) => ApiResult.success(data),
-      failure: (error) => ApiResult.failure(error),
-    );
-  }
-
-  @override
-  Future<ApiResult<List<EventData>>> fetchEventsByUserId(int userId) async {
-    final participantsResult =
-        await remoteDataSource.fetchParticipantsByUser(userId);
-    if (participantsResult.isFailure) {
-      return ApiResult.failure(participantsResult.exceptionOrNull!);
-    }
-
-    final participants = participantsResult.dataOrNull ?? [];
-    final eventIds = participants
-        .map((participant) => participant.eventId)
-        .whereType<int>()
-        .toSet();
-
-    if (eventIds.isEmpty) {
-      return ApiResult.success([]);
-    }
-
-    final eventResults = await Future.wait(
-      eventIds.map(remoteDataSource.fetchEvent),
-    );
-
-    final failure = eventResults
-        .where((result) => result.isFailure)
-        .map((result) => result.exceptionOrNull)
-        .whereType<ApiException>()
-        .cast<ApiException?>()
-        .firstWhere(
-          (exception) => exception != null,
-          orElse: () => null,
-        );
-
-    if (failure != null) {
-      return ApiResult.failure(failure);
-    }
-
-    final events = eventResults
-        .map((result) => result.dataOrNull)
-        .whereType<EventData>()
-        .toList();
-
-    return ApiResult.success(events);
-  }
 
   @override
   Future<ApiResult<EventData>> fetchEvent(int id) async {
@@ -76,17 +23,6 @@ class EventRepositoryImpl implements EventRepository {
     int eventId,
   ) async {
     final result = await remoteDataSource.fetchParticipantsByEvent(eventId);
-    return result.when(
-      success: (data) => ApiResult.success(data),
-      failure: (error) => ApiResult.failure(error),
-    );
-  }
-
-  @override
-  Future<ApiResult<EventData>> createEvent(
-    CreateEventData eventCreateData,
-  ) async {
-    final result = await remoteDataSource.createEvent(eventCreateData);
     return result.when(
       success: (data) => ApiResult.success(data),
       failure: (error) => ApiResult.failure(error),
@@ -122,7 +58,7 @@ class EventRepositoryImpl implements EventRepository {
       );
 
       return addResult.when(
-        success: (_) => ApiResult.success(true),
+        success: (data) => ApiResult.success(data),
         failure: (error) => ApiResult.failure(error),
       );
     }
@@ -134,7 +70,7 @@ class EventRepositoryImpl implements EventRepository {
     );
 
     return updateResult.when(
-      success: (_) => ApiResult.success(true),
+      success: (data) => ApiResult.success(data),
       failure: (error) => ApiResult.failure(error),
     );
   }

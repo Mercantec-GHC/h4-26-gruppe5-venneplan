@@ -1,4 +1,4 @@
-﻿namespace API.Services
+﻿namespace API.Mappings
 {
     public class GroupService
     {
