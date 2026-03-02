@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '/features/chat/bloc/group/group_bloc.dart';
 import '/features/events/bloc/event_bloc.dart';
-import '/features/events/view/Event_page.dart';
+import 'features/events/view/event_page.dart';
 import '/features/chat/view/chat_overview_page.dart';
 import '/features/front_page/view/frontpage_page.dart';
 import '/features/register/view/register_overview_page.dart';

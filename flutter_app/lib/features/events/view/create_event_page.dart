@@ -7,7 +7,7 @@ import '../bloc/event_event.dart';
 import '../bloc/event_state.dart';
 import '../model/create_event_data.dart';
 import '../../../core/di/injection.dart';
-import 'Event_page.dart';
+import 'event_page.dart';
 
 class CreateEventPage extends StatefulWidget {
   const CreateEventPage({super.key});

@@ -5,7 +5,7 @@ import '../bloc/frontpage_bloc.dart';
 import '../bloc/frontpage_event.dart';
 import '../bloc/frontpage_state.dart';
 import '../widgets/event_list.dart';
-import '../../events/view/Event_page.dart';
+import '../../events/view/event_page.dart';
 import '../../events/view/create_event_page.dart';
 
 import '../../../data/repositories/event_repository_impl.dart';

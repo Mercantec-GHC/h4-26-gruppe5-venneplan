@@ -74,7 +74,7 @@ class GroupInfoPage extends StatelessWidget {
 												return const Center(child: CircularProgressIndicator());
 											} else if (userState is UserLoaded) {
 												return DropdownButton<int>(
-													value: null,
+													value: null, // Supposed to mean starting without selection, although somehow creates an issue on dev branch but not older main.
 													hint: const Text('Select user'),
 													isExpanded: true,
 													items: userState.users.map((u) => DropdownMenuItem<int>(

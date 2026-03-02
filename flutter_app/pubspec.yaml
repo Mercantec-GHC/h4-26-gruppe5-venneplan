@@ -38,7 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   
   # HTTP Client
-  dio: ^5.9.1
+  dio: ^5.9.2
   
   # State Management
   provider: ^6.1.1
@@ -58,8 +58,8 @@ dependencies:
   # Code highlighting
   flutter_highlight: ^0.7.0
   http: ^1.6.0
-  flutter_datetime_picker_plus: ^2.2.0
   bloc: ^9.2.0
+  flutter_datetime_picker_plus: ^2.2.0
 
 dev_dependencies:
   flutter_test:
