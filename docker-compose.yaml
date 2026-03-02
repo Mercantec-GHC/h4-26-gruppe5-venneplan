@@ -8,6 +8,8 @@ services:
     environment:
       - ASPNETCORE_URLS=http://+:5000
       - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Host=ep-cool-pine-a9om97pk-pooler.gwc.azure.neon.tech; Database=Venneplan; Username=neondb_owner; Password=npg_huFBULfo5P9S; SSL Mode=VerifyFull; Channel Binding=Require;
+      - Jwt__SecretKey=u8k9vQe7Jx2Vf1s3b6Yz0pLq7nH4sT1aVwX5yZ8c=
     networks:
       - app-network
 
