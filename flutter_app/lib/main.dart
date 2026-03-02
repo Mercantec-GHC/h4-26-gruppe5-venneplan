@@ -23,7 +23,10 @@ void main() async {
 
   // 1. Initialisér App Configuration
   // Remember: Skift til Environment.production når du deployer til produktion!
-  await AppConfig.initialize(Environment.development);
+  const envName = String.fromEnvironment('ENVIRONMENT', defaultValue: 'development');
+  final env = envName == 'production' ? Environment.production : Environment.development;
+
+  await AppConfig.initialize(env);
   // await AppConfig.initialize(Environment.production);
   
   // Log hvilket environment vi kører i

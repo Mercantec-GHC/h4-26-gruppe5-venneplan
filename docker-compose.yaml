@@ -18,6 +18,7 @@ services:
       context: ./flutter_app
       dockerfile: Dockerfile
       args:
+        - ENVIRONMENT=production
         - BUILDKIT_INLINE_CACHE=1
     ports:
       - "4051:80"
