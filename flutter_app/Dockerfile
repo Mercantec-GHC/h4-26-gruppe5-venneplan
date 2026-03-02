@@ -21,6 +21,9 @@ COPY analysis_options.yaml ./
 # Build for web
 RUN flutter build web --release
 
+ARG ENVIRONMENT=production
+RUN flutter build web --dart-define=ENVIRONMENT=$ENVIRONMENT
+
 # Stage 2: Create the run-time image
 FROM nginx:alpine
 
