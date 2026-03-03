@@ -1,14 +1,14 @@
-version: "3.9"
-
 services:
   backend:
     build:
       context: ./Backend
       dockerfile: API/Dockerfile
+    ports:
+      - "4050:5000"
     environment:
       - ASPNETCORE_URLS=http://+:5000
       - ASPNETCORE_ENVIRONMENT=Production
-      - ConnectionStrings__DefaultConnection=Host=ep-cool-pine-a9om97pk-pooler.gwc.azure.neon.tech;Database=Venneplan;Username=neondb_owner;Password=npg_huFBULfo5P9S;SSL Mode=VerifyFull;Channel Binding=Require;
+      - ConnectionStrings__DefaultConnection=Host=ep-cool-pine-a9om97pk-pooler.gwc.azure.neon.tech; Database=Venneplan; Username=neondb_owner; Password=npg_huFBULfo5P9S; SSL Mode=VerifyFull; Channel Binding=Require;
       - Jwt__SecretKey=u8k9vQe7Jx2Vf1s3b6Yz0pLq7nH4sT1aVwX5yZ8c=
     networks:
       - app-network
@@ -20,22 +20,10 @@ services:
       args:
         - ENVIRONMENT=production
         - BUILDKIT_INLINE_CACHE=1
-    depends_on:
-      - backend
-    networks:
-      - app-network
-
-  nginx:
-    image: nginx:latest
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-      - ./nginx/ssl:/etc/nginx/ssl:ro
     ports:
-      - "80:80"
-      - "443:443"
+      - "4051:80"
     depends_on:
       - backend
-      - flutterweb
     networks:
       - app-network
 
